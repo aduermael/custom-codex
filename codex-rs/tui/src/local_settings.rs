@@ -64,7 +64,8 @@ impl LocalSettings {
                 screen_reader_detection_done: None,
                 effects: config.tui_effects,
                 rendering: config.tui_rendering,
-                show_tooltips: config.show_tooltips,
+                // Shortcut disables optional tips while keeping their content available.
+                show_tooltips: false,
                 show_server_version_notice: config.tui_show_server_version_notice,
                 auto_recap: config.tui_auto_recap,
                 disable_paste_burst: Some(config.disable_paste_burst),

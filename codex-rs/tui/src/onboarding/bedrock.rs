@@ -377,7 +377,7 @@ impl BedrockState {
                 lines.push("".into());
                 lines.push(Line::from(vec![
                     "  AWS profile: ".into(),
-                    value.clone().cyan(),
+                    value.clone().green(),
                 ]));
             }
             BedrockView::ApiKeyEntry(value) => {
@@ -389,7 +389,7 @@ impl BedrockState {
                 }
                 lines.push(Line::from(vec![
                     "  Bedrock API key: ".into(),
-                    masked_value.cyan(),
+                    masked_value.green(),
                 ]));
             }
             BedrockView::RegionEntry { value, .. } => {
@@ -397,7 +397,7 @@ impl BedrockState {
                 lines.push("".into());
                 lines.push(Line::from(vec![
                     "  AWS Region: ".into(),
-                    value.clone().cyan(),
+                    value.clone().green(),
                 ]));
             }
             BedrockView::AccessKeyEntry {
@@ -429,7 +429,7 @@ impl BedrockState {
                     };
                     let line = format!("{marker} {label}: {value}");
                     lines.push(if index == *selected_field {
-                        line.cyan().into()
+                        line.green().into()
                     } else {
                         line.into()
                     });
@@ -437,13 +437,13 @@ impl BedrockState {
             }
             BedrockView::EnvironmentInstructions => {
                 lines.push(
-                    "  Configure AWS credentials in your environment, then restart Codex.".into(),
+                    "  Configure AWS credentials in your environment, then restart Shortcut.".into(),
                 );
                 lines.push("".into());
                 lines.push(Line::from(vec![
                     "  Setup guide: ".into(),
                     "https://learn.chatgpt.com/docs/amazon-bedrock"
-                        .cyan()
+                        .green()
                         .underlined(),
                 ]));
                 lines.push("".into());
@@ -577,7 +577,7 @@ impl BedrockState {
             let marker = if selected { ">" } else { " " };
             let title_line = format!("{marker} {}. {title}", index + 1);
             lines.push(if selected {
-                title_line.cyan().into()
+                title_line.green().into()
             } else {
                 title_line.into()
             });

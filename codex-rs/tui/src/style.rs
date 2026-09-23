@@ -15,16 +15,16 @@ use crate::terminal_palette::stdout_color_level;
 use ratatui::style::Color;
 use ratatui::style::Style;
 
-const LIGHT_BG_ACCENT_RGB: (u8, u8, u8) = (28, 100, 200);
+const LIGHT_BG_ACCENT_RGB: (u8, u8, u8) = (0, 112, 64);
 
-/// ChatGPT Blue 100 (#A4CDFB), used for selection fills on light backgrounds.
-pub(crate) const CHATGPT_BLUE_100: (u8, u8, u8) = (164, 205, 251);
+/// Mint green (#A7F3D0), used for selection fills on light backgrounds.
+pub(crate) const UI_SELECTION_LIGHT: (u8, u8, u8) = (167, 243, 208);
 
-/// ChatGPT Blue 200 (#63A8F8).
-pub(crate) const CHATGPT_BLUE_200: (u8, u8, u8) = (99, 168, 248);
+/// Bright green (#4ADE80), used for selection fills on dark backgrounds.
+pub(crate) const UI_SELECTION_DARK: (u8, u8, u8) = (74, 222, 128);
 
 /// Shared accent for picker selection backgrounds and transcript foreground emphasis.
-pub(crate) const UI_ACCENT: (u8, u8, u8) = CHATGPT_BLUE_200;
+pub(crate) const UI_ACCENT: (u8, u8, u8) = UI_SELECTION_DARK;
 
 #[derive(Clone, Copy)]
 pub(crate) enum StatusTone {
@@ -61,15 +61,15 @@ pub fn user_message_style() -> Style {
     user_message_style_for(default_bg())
 }
 
-/// Submitted prompts use a lighter fill than the editable composer in either theme.
+/// Submitted prompts use a subtler green fill than the editable composer in either theme.
 pub(crate) fn history_prompt_style() -> Style {
     let Some(background) = default_bg() else {
         return Style::default();
     };
     let (foreground, alpha) = if is_light(background) {
-        ((0, 0, 0), 0.02)
+        (UI_SELECTION_LIGHT, 0.35)
     } else {
-        ((255, 255, 255), 0.16)
+        (UI_SELECTION_DARK, 0.12)
     };
     Style::default().bg(best_color(blend(foreground, background, alpha)))
 }
@@ -257,9 +257,9 @@ pub fn user_message_bg(terminal_bg: (u8, u8, u8)) -> Color {
 
 pub(crate) fn user_message_bg_rgb(terminal_bg: (u8, u8, u8)) -> (u8, u8, u8) {
     let (top, alpha) = if is_light(terminal_bg) {
-        ((0, 0, 0), 0.04)
+        (UI_SELECTION_LIGHT, 0.55)
     } else {
-        ((255, 255, 255), 0.12)
+        (UI_SELECTION_DARK, 0.18)
     };
     blend(top, terminal_bg, alpha)
 }

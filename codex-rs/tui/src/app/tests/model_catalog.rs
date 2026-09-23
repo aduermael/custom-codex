@@ -340,6 +340,7 @@ async fn prepare_startup_tooltip_override_persists_model_availability_nux_count(
     });
 
     let mut local_settings = crate::local_settings::LocalSettings::from(&config);
+    local_settings.tui.show_tooltips = true;
     let tooltip = prepare_startup_tooltip_override(
         &mut local_settings,
         &presets,
@@ -450,14 +451,14 @@ async fn accepted_model_migration_persists_target_default_reasoning_effort() -> 
                 if selected_model == replacement && effort == Some(target_effort)
         );
     }
-    assert_snapshot!(migration_copies.join("\n"), @r"
+    assert_snapshot!(migration_copies.join("\n"), @"
     GPT-5.4 is no longer available
 
     Codex now uses GPT-6 Sol in place of GPT-5.4. Switch to GPT-6 Sol to continue.
 
     GPT-5.4 Mini is no longer available
 
-    Codex now uses GPT-6 Luna in place of GPT-5.4 Mini. Switch to GPT-6 Luna to continue.
+    Shortcut now uses GPT-6 Luna in place of GPT-5.4 Mini. Switch to GPT-6 Luna to continue.
 
     Meet GPT-6 Sol
 

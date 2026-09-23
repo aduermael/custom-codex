@@ -138,6 +138,7 @@ fast_default_opt_out = true
         assert_eq!(config.startup_warnings, Vec::<String>::new());
         let local = LocalSettings::from(&config);
         let mut expected: Tui = toml::from_str("")?;
+        expected.show_tooltips = false;
         expected.disable_paste_burst = Some(true);
         expected.session_picker_view = Some(SessionPickerViewMode::Dense);
         if !config_text.is_empty() {

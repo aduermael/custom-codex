@@ -10,12 +10,13 @@ use ratatui::widgets::Widget;
 
 #[test]
 fn selection_text_stays_readable_after_palette_conversion() {
+    let mut rendered = String::new();
     for background in [
         (255, 255, 255),
         (245, 240, 220),
         (130, 130, 130),
-        super::super::CHATGPT_BLUE_100,
-        (132, 184, 248),
+        super::super::UI_SELECTION_LIGHT,
+        (132, 220, 170),
         (18, 20, 30),
     ] {
         for level in [StdoutColorLevel::TrueColor, StdoutColorLevel::Ansi256] {
@@ -35,17 +36,19 @@ fn selection_text_stays_readable_after_palette_conversion() {
             };
             assert!(ratio(resolve(cell.fg), resolve(cell.bg)) >= MIN_TEXT_CONTRAST);
             let preferred = if is_light(background) {
-                super::super::CHATGPT_BLUE_100
+                super::super::UI_SELECTION_LIGHT
             } else {
-                super::super::CHATGPT_BLUE_200
+                super::super::UI_SELECTION_DARK
             };
             assert!(
                 ratio(resolve(cell.bg), background)
                     >= ratio(resolve(best_color_for_level(preferred, level)), background)
             );
             assert_eq!(cell.modifier, Modifier::BOLD);
+            rendered.push_str(&format!("{background:?} / {level:?}:\n{buffer:?}\n"));
         }
     }
+    insta::assert_snapshot!(rendered);
 }
 
 #[test]

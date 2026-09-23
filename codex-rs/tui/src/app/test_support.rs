@@ -10,6 +10,7 @@ use codex_models_manager::test_support::construct_model_info_offline_for_tests;
 use codex_models_manager::test_support::get_model_offline_for_tests;
 
 pub(super) fn select_catalog_tip(app: &mut App, width: u16, expected: &str) {
+    app.local_settings.tui.show_tooltips = true;
     for seed in 0..1024 {
         app.composer_tips = super::composer_hints::ComposerTips::new(seed);
         if app

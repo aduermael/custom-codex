@@ -437,12 +437,12 @@ impl AuthModeWidget {
 
     fn render_pick_mode(&self, area: Rect, buf: &mut Buffer) {
         let mut lines: Vec<Line> = if self.bedrock_setup_enabled {
-            vec!["  Choose how you want to use Codex.".into(), "".into()]
+            vec!["  Choose how you want to use Shortcut.".into(), "".into()]
         } else {
             vec![
                 Line::from(vec![
                     "  ".into(),
-                    "Sign in with ChatGPT to use Codex as part of your paid plan".into(),
+                    "Sign in with ChatGPT to use Shortcut as part of your paid plan".into(),
                 ]),
                 Line::from(vec![
                     "  ".into(),
@@ -462,8 +462,8 @@ impl AuthModeWidget {
 
             let line1 = if is_selected {
                 Line::from(vec![
-                    format!("{caret} {index}. ", index = idx + 1).cyan().dim(),
-                    text.to_string().cyan(),
+                    format!("{caret} {index}. ", index = idx + 1).green().dim(),
+                    text.to_string().green(),
                 ])
             } else {
                 format!("  {index}. {text}", index = idx + 1).into()
@@ -471,7 +471,7 @@ impl AuthModeWidget {
 
             let line2 = if is_selected {
                 Line::from(format!("     {description}"))
-                    .fg(Color::Cyan)
+                    .fg(Color::Green)
                     .add_modifier(Modifier::DIM)
             } else {
                 Line::from(format!("     {description}"))
@@ -576,14 +576,14 @@ impl AuthModeWidget {
             lines.push("".into());
             lines.push(Line::from(vec![
                 "  ".into(),
-                state.auth_url.as_str().cyan().underlined(),
+                state.auth_url.as_str().green().underlined(),
             ]));
             lines.push("".into());
             lines.push(Line::from(vec![
                 "  On a remote or headless machine? Press ".into(),
                 self.cancel_binding().into(),
                 " and choose ".into(),
-                "Sign in with Device Code".cyan(),
+                "Sign in with Device Code".green(),
                 ".".into(),
             ]));
             lines.push("".into());
@@ -601,10 +601,10 @@ impl AuthModeWidget {
             .wrap(Wrap { trim: false })
             .render(area, buf);
 
-        // Wrap cyan+underlined URL cells with OSC 8 so the terminal treats
+        // Wrap green+underlined URL cells with OSC 8 so the terminal treats
         // the entire region as a single clickable hyperlink.
         if let Some(url) = &auth_url {
-            mark_url_hyperlink(buf, area, url);
+            mark_underlined_hyperlink(buf, area, url);
         }
     }
 
@@ -630,10 +630,10 @@ impl AuthModeWidget {
             "".into(),
             "  Before you start:".into(),
             "".into(),
-            "  Decide how much autonomy you want to grant Codex".into(),
+            "  Decide how much autonomy you want to grant Shortcut".into(),
             docs_line,
             "".into(),
-            "  Codex can make mistakes".into(),
+            "  Shortcut can make mistakes".into(),
             HyperlinkLine::new(
                 "  Review the code it writes and commands it runs"
                     .dim()
@@ -644,9 +644,9 @@ impl AuthModeWidget {
             preferences_line,
             "".into(),
             HyperlinkLine::new(Line::from(vec![
-                "  Press ".fg(Color::Cyan),
+                "  Press ".fg(Color::Green),
                 self.confirm_binding().into(),
-                " to continue".fg(Color::Cyan),
+                " to continue".fg(Color::Green),
             ])),
         ];
 
@@ -672,7 +672,7 @@ impl AuthModeWidget {
         let lines = vec![
             "✓ API key configured".fg(Color::Green).into(),
             "".into(),
-            "  Codex will use usage-based billing with your API key.".into(),
+            "  Shortcut will use usage-based billing with your API key.".into(),
         ];
 
         Paragraph::new(lines)
@@ -722,7 +722,7 @@ impl AuthModeWidget {
                     .title("API key")
                     .borders(Borders::ALL)
                     .border_type(BorderType::Rounded)
-                    .border_style(Style::default().fg(Color::Cyan)),
+                    .border_style(Style::default().fg(Color::Green)),
             )
             .render(input_area, buf);
 
@@ -1235,7 +1235,7 @@ mod tests {
             rows.pop();
         }
         insta::assert_snapshot!(rows.join("\n"), @r###"
-          Choose how you want to use Codex.
+          Choose how you want to use Shortcut.
 
         > 1. Sign in with ChatGPT
              Usage included with Plus, Pro, Business, and Enterprise plans
@@ -1435,22 +1435,22 @@ mod tests {
             })
             .collect::<Vec<_>>()
             .join("\n");
-        insta::assert_snapshot!(visible, @r###"
+        insta::assert_snapshot!(visible, @"
         ✓ Signed in with your ChatGPT account
 
           Before you start:
 
-          Decide how much autonomy you want to grant Codex
+          Decide how much autonomy you want to grant Shortcut
           For more details see the Codex docs
 
-          Codex can make mistakes
+          Shortcut can make mistakes
           Review the code it writes and commands it runs
 
           Powered by your ChatGPT account
           Uses your plan's rate limits and training data preferences
 
           Press enter to continue
-        "###);
+        ");
     }
 
     #[test]
@@ -1504,24 +1504,24 @@ mod tests {
     }
 
     #[test]
-    fn mark_url_hyperlink_wraps_cyan_underlined_cells() {
+    fn mark_underlined_hyperlink_wraps_green_underlined_cells() {
         let url = "https://example.com";
         let area = Rect::new(0, 0, 20, 1);
         let mut buf = Buffer::empty(area);
 
-        // Manually write some cyan+underlined characters to simulate a rendered URL.
+        // Manually write some green+underlined characters to simulate a rendered URL.
         for (i, ch) in "example".chars().enumerate() {
             let cell = &mut buf[(i as u16, 0)];
             cell.set_symbol(&ch.to_string());
-            cell.fg = Color::Cyan;
+            cell.fg = Color::Green;
             cell.modifier = Modifier::UNDERLINED;
         }
         // Leave a plain cell that should NOT be marked.
         buf[(7, 0)].set_symbol("X");
 
-        mark_url_hyperlink(&mut buf, area, url);
+        mark_underlined_hyperlink(&mut buf, area, url);
 
-        // Each cyan+underlined cell should now carry the OSC 8 wrapper.
+        // Each green+underlined cell should now carry the OSC 8 wrapper.
         let found = collect_osc8_chars(&buf, area, url);
         assert_eq!(found, "example");
 
@@ -1530,19 +1530,19 @@ mod tests {
     }
 
     #[test]
-    fn mark_url_hyperlink_sanitizes_control_chars() {
+    fn mark_underlined_hyperlink_sanitizes_control_chars() {
         let area = Rect::new(0, 0, 10, 1);
         let mut buf = Buffer::empty(area);
 
-        // One cyan+underlined cell to mark.
+        // One green+underlined cell to mark.
         let cell = &mut buf[(0, 0)];
         cell.set_symbol("a");
-        cell.fg = Color::Cyan;
+        cell.fg = Color::Green;
         cell.modifier = Modifier::UNDERLINED;
 
         // URL contains ESC and BEL that could break the OSC 8 sequence.
         let malicious_url = "https://evil.com/\x1B]8;;\x07injected";
-        mark_url_hyperlink(&mut buf, area, malicious_url);
+        mark_underlined_hyperlink(&mut buf, area, malicious_url);
 
         let sym = buf[(0, 0)].symbol().to_string();
         // The sanitized URL retains `]` (printable) but strips ESC and BEL.

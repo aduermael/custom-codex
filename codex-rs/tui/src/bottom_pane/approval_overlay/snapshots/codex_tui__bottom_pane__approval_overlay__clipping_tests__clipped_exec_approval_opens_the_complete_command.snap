@@ -1,6 +1,5 @@
 ---
 source: tui/src/bottom_pane/approval_overlay/clipping_tests.rs
-assertion_line: 100
 expression: "snapshots.join(\"\\n\\n\")"
 ---
 bound=true 80x14
@@ -16,7 +15,7 @@ bound=true 80x14
   requiring review.A reason requiring review.A reason requiring review.A
   [… 34 lines] ctrl+g view all
 › 1. Yes, proceed (y)
-  2. No, and tell Codex what to do differently (esc)
+  2. No, and tell Shortcut what to do differently (esc)
   Press enter to confirm or esc to cancel
 
 bound=true 40x10
@@ -26,7 +25,7 @@ bound=true 40x10
 
   [… 43 lines] ctrl+g view all
 › 1. Yes, proceed (y)
-  2. No, and tell Codex what to do
+  2. No, and tell Shortcut what to do
      differently (esc)
   Press enter to confirm or esc to
   cancel
@@ -36,7 +35,7 @@ bound=true 40x8
   Would you like to run the following
   [… 43 lines] ctrl+g view all
 › 1. Yes, proceed (y)
-  2. No, and tell Codex what to do
+  2. No, and tell Shortcut what to do
      differently (esc)
   Press enter to confirm or esc to
   cancel
@@ -45,7 +44,7 @@ bound=true 40x7
 
   [… 43 lines] ctrl+g view all
 › 1. Yes, proceed (y)
-  2. No, and tell Codex what to do
+  2. No, and tell Shortcut what to do
      differently (esc)
   Press enter to confirm or esc to
   cancel
@@ -63,7 +62,7 @@ bound=false 80x14
   requiring review.A reason requiring review.A reason requiring review.A
   [… 34 lines]
 › 1. Yes, proceed (y)
-  2. No, and tell Codex what to do differently (esc)
+  2. No, and tell Shortcut what to do differently (esc)
   Press enter to confirm or esc to cancel
 
 bound=false 40x10
@@ -73,7 +72,7 @@ bound=false 40x10
 
   [… 43 lines]
 › 1. Yes, proceed (y)
-  2. No, and tell Codex what to do
+  2. No, and tell Shortcut what to do
      differently (esc)
   Press enter to confirm or esc to
   cancel
@@ -83,7 +82,7 @@ bound=false 40x8
   Would you like to run the following
   [… 43 lines]
 › 1. Yes, proceed (y)
-  2. No, and tell Codex what to do
+  2. No, and tell Shortcut what to do
      differently (esc)
   Press enter to confirm or esc to
   cancel
@@ -92,7 +91,7 @@ bound=false 40x7
 
   [… 43 lines]
 › 1. Yes, proceed (y)
-  2. No, and tell Codex what to do
+  2. No, and tell Shortcut what to do
      differently (esc)
   Press enter to confirm or esc to
   cancel

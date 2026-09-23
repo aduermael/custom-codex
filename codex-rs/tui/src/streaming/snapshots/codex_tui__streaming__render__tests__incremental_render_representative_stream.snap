@@ -1,6 +1,5 @@
 ---
 source: tui/src/streaming/render_tests.rs
-assertion_line: 115
 expression: render.lines
 ---
 [
@@ -18,7 +17,7 @@ expression: render.lines
     HyperlinkLine {
         line: Line::from_iter([
             Span::from("First paragraph with a "),
-            Span::from("link").fg(Color::Rgb(99, 168, 248)).underlined(),
+            Span::from("link").fg(Color::Rgb(74, 222, 128)).underlined(),
         ]),
         hyperlinks: [
             TerminalHyperlink {
@@ -31,7 +30,7 @@ expression: render.lines
     HyperlinkLine {
         line: Line::from_iter([
             Span::from("("),
-            Span::from("https://example.com").fg(Color::Rgb(99, 168, 248)).underlined(),
+            Span::from("https://example.com").fg(Color::Rgb(74, 222, 128)).underlined(),
             Span::from(")"),
             Span::from("."),
         ]),
@@ -53,14 +52,14 @@ expression: render.lines
     },
     HyperlinkLine {
         line: Line::from_iter([
-            Span::from("1. ").fg(Color::Rgb(99, 168, 248)),
+            Span::from("1. ").fg(Color::Rgb(74, 222, 128)),
             Span::from("First item"),
         ]),
         hyperlinks: [],
     },
     HyperlinkLine {
         line: Line::from_iter([
-            Span::from("2. ").fg(Color::Rgb(99, 168, 248)),
+            Span::from("2. ").fg(Color::Rgb(74, 222, 128)),
             Span::from("Second item"),
         ]),
         hyperlinks: [],

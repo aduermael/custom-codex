@@ -44,22 +44,22 @@ fn with_border_internal(
 
     let mut out = Vec::with_capacity(lines.len() + 2);
     let border_inner_width = content_width + 2;
-    out.push(vec![format!("╭{}╮", "─".repeat(border_inner_width)).dim()].into());
+    out.push(vec![format!("╭{}╮", "─".repeat(border_inner_width)).fg(accent_color())].into());
 
     for line in lines.into_iter() {
         let used_width = line_width(&line);
         let span_count = line.spans.len();
         let mut spans: Vec<Span<'static>> = Vec::with_capacity(span_count + 4);
-        spans.push(Span::from("│ ").dim());
+        spans.push(Span::from("│ ").fg(accent_color()));
         spans.extend(line);
         if used_width < content_width {
             spans.push(Span::from(" ".repeat(content_width - used_width)).dim());
         }
-        spans.push(Span::from(" │").dim());
+        spans.push(Span::from(" │").fg(accent_color()));
         out.push(Line::from(spans));
     }
 
-    out.push(vec![format!("╰{}╯", "─".repeat(border_inner_width)).dim()].into());
+    out.push(vec![format!("╰{}╯", "─".repeat(border_inner_width)).fg(accent_color())].into());
 
     out
 }
@@ -195,7 +195,7 @@ pub(crate) fn new_session_info(
             Line::from(vec![
                 "  ".into(),
                 "/init".into(),
-                " - create an AGENTS.md file with instructions for Codex".dim(),
+                " - create an AGENTS.md file with instructions for Shortcut".dim(),
             ]),
             Line::from(vec![
                 "  ".into(),
@@ -205,7 +205,7 @@ pub(crate) fn new_session_info(
             Line::from(vec![
                 "  ".into(),
                 "/permissions".into(),
-                " - choose what Codex is allowed to do".dim(),
+                " - choose what Shortcut is allowed to do".dim(),
             ]),
             Line::from(vec![
                 "  ".into(),
@@ -360,10 +360,10 @@ impl HistoryCell for SessionHeaderHistoryCell {
 
         let make_row = |spans: Vec<Span<'static>>| Line::from(spans);
 
-        // Title line rendered inside the box: ">_ OpenAI Codex (vX)"
+        // Title line rendered inside the box: ">_ Shortcut (vX)"
         let title_spans: Vec<Span<'static>> = vec![
             Span::from(">_ ").dim(),
-            Span::from("OpenAI Codex").bold(),
+            Span::from("Shortcut").bold(),
             Span::from(" ").dim(),
             Span::from(format!("(v{})", self.version)).dim(),
         ];
@@ -434,7 +434,7 @@ impl HistoryCell for SessionHeaderHistoryCell {
 
     fn raw_lines(&self) -> Vec<Line<'static>> {
         let mut lines = vec![
-            Line::from(format!("OpenAI Codex (v{})", self.version)),
+            Line::from(format!("Shortcut (v{})", self.version)),
             Line::from(format!(
                 "model: {}{}",
                 self.model,

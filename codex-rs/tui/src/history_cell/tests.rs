@@ -357,7 +357,7 @@ fn source_backed_cells_render_raw_source_without_prefix_or_style() {
 #[test]
 fn proposed_plan_cell_renders_markdown_table() {
     let plan = new_proposed_plan(
-        "## Plan\n\n| Step | Owner |\n| --- | --- |\n| Verify | Codex |\n".to_string(),
+        "## Plan\n\n| Step | Owner |\n| --- | --- |\n| Verify | Shortcut |\n".to_string(),
         &test_cwd(),
     );
 
@@ -476,7 +476,7 @@ fn empty_mcp_output_preserves_docs_hyperlink() {
 #[test]
 fn proposed_plan_cell_unwraps_markdown_fenced_table() {
     let plan = new_proposed_plan(
-        "## Plan\n\n```markdown\n| Step | Owner |\n| --- | --- |\n| Verify | Codex |\n```\n"
+        "## Plan\n\n```markdown\n| Step | Owner |\n| --- | --- |\n| Verify | Shortcut |\n```\n"
             .to_string(),
         &test_cwd(),
     );
@@ -738,9 +738,11 @@ fn ps_output_empty_snapshot() {
 #[tokio::test]
 async fn session_info_uses_availability_nux_tooltip_override() {
     let config = test_config().await;
+    let mut local_settings = crate::local_settings::LocalSettings::from(&config);
+    local_settings.tui.show_tooltips = true;
     let cell = new_session_info(
         &config,
-        &crate::local_settings::LocalSettings::from(&config),
+        &local_settings,
         "gpt-5",
         "gpt-5",
         &session_configured_event("gpt-5"),
@@ -762,9 +764,11 @@ async fn session_info_uses_availability_nux_tooltip_override() {
 async fn session_info_availability_nux_tooltip_snapshot() {
     let mut config = test_config().await;
     config.cwd = test_path_buf("/tmp/project").abs();
+    let mut local_settings = crate::local_settings::LocalSettings::from(&config);
+    local_settings.tui.show_tooltips = true;
     let cell = new_session_info(
         &config,
-        &crate::local_settings::LocalSettings::from(&config),
+        &local_settings,
         "gpt-5",
         "gpt-5",
         &session_configured_event("gpt-5"),
@@ -781,9 +785,11 @@ async fn session_info_availability_nux_tooltip_snapshot() {
 #[tokio::test]
 async fn session_info_preserves_styled_tooltip_links() {
     let config = test_config().await;
+    let mut local_settings = crate::local_settings::LocalSettings::from(&config);
+    local_settings.tui.show_tooltips = true;
     let cell = new_session_info(
         &config,
-        &crate::local_settings::LocalSettings::from(&config),
+        &local_settings,
         "gpt-5",
         "gpt-5",
         &session_configured_event("gpt-5"),
@@ -1827,6 +1833,35 @@ fn completed_mcp_tool_call_multiple_outputs_inline_snapshot() {
 
     let rendered = render_lines(&cell.display_lines(/*width*/ 120)).join("\n");
 
+    insta::assert_snapshot!(rendered);
+}
+
+#[test]
+fn session_header_border_in_light_and_dark_palettes() {
+    use ratatui::widgets::Widget;
+
+    let mut rendered = String::new();
+    for (fg, bg) in [((30, 30, 30), (255, 255, 255)), ((240, 240, 240), (18, 20, 30))] {
+        crate::terminal_palette::with_test_default_colors(
+            crate::terminal_probe::DefaultColors { fg, bg },
+            || {
+                let cell = SessionHeaderHistoryCell::new(
+                    "test-model".to_string(),
+                    /*reasoning_effort*/ None,
+                    /*show_fast_status*/ false,
+                    PathBuf::from("project"),
+                    "test",
+                );
+                let width = 48;
+                let area = Rect::new(
+                    /*x*/ 0, /*y*/ 0, width, cell.desired_height(width),
+                );
+                let mut buffer = Buffer::empty(area);
+                Paragraph::new(cell.display_lines(width)).render(area, &mut buffer);
+                rendered.push_str(&format!("{bg:?}:\n{buffer:?}\n"));
+            },
+        );
+    }
     insta::assert_snapshot!(rendered);
 }
 

@@ -1,0 +1,124 @@
+---
+source: tui/src/style/contrast_tests.rs
+expression: rendered
+---
+(255, 255, 255) / TrueColor:
+Buffer {
+    area: Rect { x: 0, y: 0, width: 8, height: 1 },
+    content: [
+        "› resume",
+    ],
+    styles: [
+        x: 0, y: 0, fg: Rgb(0, 46, 23), bg: Rgb(167, 243, 208), underline: Reset, modifier: BOLD,
+    ]
+}
+(255, 255, 255) / Ansi256:
+Buffer {
+    area: Rect { x: 0, y: 0, width: 8, height: 1 },
+    content: [
+        "› resume",
+    ],
+    styles: [
+        x: 0, y: 0, fg: Indexed(235), bg: Indexed(42), underline: Reset, modifier: BOLD,
+    ]
+}
+(245, 240, 220) / TrueColor:
+Buffer {
+    area: Rect { x: 0, y: 0, width: 8, height: 1 },
+    content: [
+        "› resume",
+    ],
+    styles: [
+        x: 0, y: 0, fg: Rgb(0, 46, 23), bg: Rgb(74, 222, 128), underline: Reset, modifier: BOLD,
+    ]
+}
+(245, 240, 220) / Ansi256:
+Buffer {
+    area: Rect { x: 0, y: 0, width: 8, height: 1 },
+    content: [
+        "› resume",
+    ],
+    styles: [
+        x: 0, y: 0, fg: Indexed(235), bg: Indexed(42), underline: Reset, modifier: BOLD,
+    ]
+}
+(130, 130, 130) / TrueColor:
+Buffer {
+    area: Rect { x: 0, y: 0, width: 8, height: 1 },
+    content: [
+        "› resume",
+    ],
+    styles: [
+        x: 0, y: 0, fg: Rgb(0, 46, 23), bg: Rgb(167, 243, 208), underline: Reset, modifier: BOLD,
+    ]
+}
+(130, 130, 130) / Ansi256:
+Buffer {
+    area: Rect { x: 0, y: 0, width: 8, height: 1 },
+    content: [
+        "› resume",
+    ],
+    styles: [
+        x: 0, y: 0, fg: Indexed(235), bg: Indexed(158), underline: Reset, modifier: BOLD,
+    ]
+}
+(167, 243, 208) / TrueColor:
+Buffer {
+    area: Rect { x: 0, y: 0, width: 8, height: 1 },
+    content: [
+        "› resume",
+    ],
+    styles: [
+        x: 0, y: 0, fg: Rgb(0, 46, 23), bg: Rgb(74, 222, 128), underline: Reset, modifier: BOLD,
+    ]
+}
+(167, 243, 208) / Ansi256:
+Buffer {
+    area: Rect { x: 0, y: 0, width: 8, height: 1 },
+    content: [
+        "› resume",
+    ],
+    styles: [
+        x: 0, y: 0, fg: Indexed(235), bg: Indexed(42), underline: Reset, modifier: BOLD,
+    ]
+}
+(132, 220, 170) / TrueColor:
+Buffer {
+    area: Rect { x: 0, y: 0, width: 8, height: 1 },
+    content: [
+        "› resume",
+    ],
+    styles: [
+        x: 0, y: 0, fg: Rgb(0, 46, 23), bg: Rgb(167, 243, 208), underline: Reset, modifier: BOLD,
+    ]
+}
+(132, 220, 170) / Ansi256:
+Buffer {
+    area: Rect { x: 0, y: 0, width: 8, height: 1 },
+    content: [
+        "› resume",
+    ],
+    styles: [
+        x: 0, y: 0, fg: Indexed(235), bg: Indexed(158), underline: Reset, modifier: BOLD,
+    ]
+}
+(18, 20, 30) / TrueColor:
+Buffer {
+    area: Rect { x: 0, y: 0, width: 8, height: 1 },
+    content: [
+        "› resume",
+    ],
+    styles: [
+        x: 0, y: 0, fg: Rgb(0, 46, 23), bg: Rgb(74, 222, 128), underline: Reset, modifier: BOLD,
+    ]
+}
+(18, 20, 30) / Ansi256:
+Buffer {
+    area: Rect { x: 0, y: 0, width: 8, height: 1 },
+    content: [
+        "› resume",
+    ],
+    styles: [
+        x: 0, y: 0, fg: Indexed(235), bg: Indexed(42), underline: Reset, modifier: BOLD,
+    ]
+}

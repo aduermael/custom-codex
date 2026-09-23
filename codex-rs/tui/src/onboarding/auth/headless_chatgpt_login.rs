@@ -17,7 +17,7 @@ use super::AuthModeWidget;
 use super::ContinueWithDeviceCodeState;
 use super::SignInState;
 use super::cancel_login_attempt;
-use super::mark_url_hyperlink;
+use super::mark_underlined_hyperlink;
 use super::onboarding_request_id;
 
 pub(super) fn start_headless_chatgpt_login(widget: &mut AuthModeWidget) {
@@ -113,7 +113,7 @@ pub(super) fn render_device_code_login(
         lines.push("".into());
         lines.push(Line::from(vec![
             "  ".into(),
-            verification_url.as_str().cyan().underlined(),
+            verification_url.as_str().green().underlined(),
         ]));
         lines.push("".into());
         lines.push(
@@ -122,11 +122,11 @@ pub(super) fn render_device_code_login(
         lines.push("".into());
         lines.push(Line::from(vec![
             "  ".into(),
-            user_code.as_str().cyan().bold(),
+            user_code.as_str().green().bold(),
         ]));
         lines.push("".into());
         lines.push(
-            "  Continue only if you started this login in Codex. If a website or another person gave you this code, cancel."
+            "  Continue only if you started this login in Shortcut. If a website or another person gave you this code, cancel."
                 .dim()
                 .into(),
         );
@@ -148,7 +148,7 @@ pub(super) fn render_device_code_login(
         .render(area, buf);
 
     if let Some(url) = &verification_url {
-        mark_url_hyperlink(buf, area, url);
+        mark_underlined_hyperlink(buf, area, url);
     }
 }
 
